@@ -10,7 +10,7 @@ export default function ProtectedRoute() {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/auth/isAuth",
+          "https://node-mailer-test-project-backend.vercel.app/api/v1/auth/isAuth",
           { withCredentials: true }
         );
         if (res.data.user) {
