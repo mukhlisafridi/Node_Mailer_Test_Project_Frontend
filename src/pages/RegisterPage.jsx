@@ -36,7 +36,7 @@ export default function RegisterPage() {
     try {
       setIsSubmitting(true);
 
-    const res =  await axios.post("http://localhost:3000/api/v1/auth/register", formData);
+    const res =  await axios.post("https://node-mailer-test-project-backend.vercel.app/api/v1/auth/register", formData);
 
       toast.success(res.data.message);
       setFormData({ name: "", email: "", password: "" });

@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   const handlerLogout=async()=>{
   try {
-     const res = await axios.post("http://localhost:3000/api/v1/auth/logout",{},{withCredentials:true})
+     const res = await axios.post("https://node-mailer-test-project-backend.vercel.app/api/v1/auth/logout",{},{withCredentials:true})
     toast.success(res.data.message)
     localStorage.removeItem("name");
     navigate("/")

@@ -13,7 +13,7 @@ export default function VerifyPage() {
       if (!token) return;
 
       try {
-        await axios.get(`http://localhost:3000/api/v1/auth/verify?token=${token}`);
+        await axios.get(`https://node-mailer-test-project-backend.vercel.app/api/v1/verify?token=${token}`);
         toast.success("Email verified successfully!");
         navigate("/"); 
       } catch (err) {

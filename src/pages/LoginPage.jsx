@@ -26,7 +26,7 @@ export default function LoginPage() {
 
     try {
       setIsSubmitting(true);
-      const res = await axios.post("http://localhost:3000/api/v1/auth/login", formData, {
+      const res = await axios.post("https://node-mailer-test-project-backend.vercel.app/api/v1/login", formData, {
       withCredentials: true,
 });
       toast.success(res.data.message);
