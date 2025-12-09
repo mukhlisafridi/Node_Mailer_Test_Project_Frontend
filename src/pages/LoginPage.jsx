@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axiosInstance from "../api/axiosInstance.js";
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -27,15 +28,17 @@ export default function LoginPage() {
     try {
       setIsSubmitting(true);
       const res = await axiosInstance.post("/login", formData, {
-      withCredentials: true,
-});
+        withCredentials: true,
+      });
+
+      localStorage.setItem("name", res.data.name);
       toast.success(res.data.message);
       setFormData({ email: "", password: "" });
-      navigate("/dashboard");
-      localStorage.setItem("name", res.data.name);
       
+      // Navigate after setting data
+      navigate("/dashboard");
     } catch (err) {
-       toast.error(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed");
     } finally {
       setIsSubmitting(false);
     }
@@ -97,7 +100,7 @@ export default function LoginPage() {
           </button>
 
           <p className="text-center text-gray-600 mt-2">
-            Don’t have an account?{" "}
+            Don't have an account?{" "}
             <Link
               to="/register"
               className="text-blue-600 font-semibold hover:underline"

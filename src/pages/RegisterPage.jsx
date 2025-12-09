@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance.js";
+
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -35,20 +36,18 @@ export default function RegisterPage() {
 
     try {
       setIsSubmitting(true);
-
-    const res =  await axiosInstance.post("/register", formData);
+      const res = await axiosInstance.post("/register", formData);
 
       toast.success(res.data.message);
       setFormData({ name: "", email: "", password: "" });
       navigate("/");
     } catch (error) {
-      toast.error(error?.res?.data?.message || "Server error");
+      
+      toast.error(error.response?.data?.message || "Server error");
     } finally {
       setIsSubmitting(false);
     }
   };
-
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300 p-4">

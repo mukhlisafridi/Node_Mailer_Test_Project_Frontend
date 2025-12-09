@@ -4,19 +4,22 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance.js";
 
 export default function Dashboard() {
-    const navigate =useNavigate()
-  const name =localStorage.getItem("name")
+  const navigate = useNavigate();
+  const name = localStorage.getItem("name");
 
-  const handlerLogout=async()=>{
-  try {                              
-     const res = await axiosInstance.post("/logout",{},{withCredentials:true})
-    toast.success(res.data.message)
-    localStorage.removeItem("name");
-    navigate("/")
-  } catch (error) {
-    toast.error(error.res.data.message)
-  }
-  }
+  const handlerLogout = async () => {
+    try {
+      const res = await axiosInstance.post("/logout", {}, { withCredentials: true });
+      toast.success(res.data.message);
+      localStorage.removeItem("name");
+      navigate("/");
+    } catch (error) {
+   toast.error(error.response?.data?.message || "Logout failed");
+      localStorage.removeItem("name");
+      navigate("/");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex">
       {/* LEFT SIDEBAR */}
@@ -33,7 +36,10 @@ export default function Dashboard() {
           <a className="block text-gray-700 font-medium hover:text-blue-600 cursor-pointer">
             Settings
           </a>
-          <a className="block text-gray-700 font-medium hover:text-blue-600 cursor-pointer" onClick={handlerLogout}>
+          <a
+            className="block text-gray-700 font-medium hover:text-blue-600 cursor-pointer"
+            onClick={handlerLogout}
+          >
             Logout
           </a>
         </nav>
@@ -42,7 +48,7 @@ export default function Dashboard() {
       {/* MAIN CONTENT */}
       <main className="flex-1 p-6">
         <h1 className="text-3xl font-bold text-gray-800">
-          Welcome, <span className="text-blue-600">{name}</span> 
+          Welcome, <span className="text-blue-600">{name || "User"}</span>
         </h1>
         <p className="text-gray-600 mt-1">Here is your dashboard overview.</p>
 
