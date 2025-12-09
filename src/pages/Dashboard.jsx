@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance.js";
 
 export default function Dashboard() {
     const navigate =useNavigate()
@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   const handlerLogout=async()=>{
   try {                              
-     const res = await axios.post("https://node-mailer-test-project-backend.vercel.app/api/v1/auth/logout",{},{withCredentials:true})
+     const res = await axiosInstance.post("/logout",{},{withCredentials:true})
     toast.success(res.data.message)
     localStorage.removeItem("name");
     navigate("/")

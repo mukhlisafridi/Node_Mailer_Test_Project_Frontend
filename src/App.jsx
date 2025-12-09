@@ -6,11 +6,13 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import VerifyPage from "./pages/VerifyPage";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
+      <Toaster position="bottom-right" />
         <Routes>
           {/* Public pages */}
           <Route element={<PublicRoute />}>

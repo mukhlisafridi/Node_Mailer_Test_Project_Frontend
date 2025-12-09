@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance.js";
 
 export default function PublicRoute() {
   const [isAuth, setIsAuth] = useState(null);
@@ -8,11 +8,8 @@ export default function PublicRoute() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get(
-          "https://node-mailer-test-project-backend.vercel.app/api/v1/auth/isAuth",
-          { withCredentials: true }
-        );
-        setIsAuth(res.data.user ? true : false);
+        const res = await axiosInstance.get("/isAuth");
+        setIsAuth(res.data.authenticated);
       } catch (err) {
         setIsAuth(false);
       }
@@ -20,7 +17,8 @@ export default function PublicRoute() {
     checkAuth();
   }, []);
 
-  if (isAuth === null) return <div>Loading...</div>; 
+ 
+  if (isAuth === null) return <div>Loading...</div>;
 
   return isAuth ? <Navigate to="/dashboard" replace /> : <Outlet />;
 }

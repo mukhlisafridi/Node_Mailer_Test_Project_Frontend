@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance.js";
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -36,7 +36,7 @@ export default function RegisterPage() {
     try {
       setIsSubmitting(true);
 
-    const res =  await axios.post("https://node-mailer-test-project-backend.vercel.app/api/v1/auth/register", formData);
+    const res =  await axiosInstance.post("/register", formData);
 
       toast.success(res.data.message);
       setFormData({ name: "", email: "", password: "" });

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import axios from "axios"
+import axiosInstance from "../api/axiosInstance.js";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -26,7 +26,7 @@ export default function LoginPage() {
 
     try {
       setIsSubmitting(true);
-      const res = await axios.post("https://node-mailer-test-project-backend.vercel.app/api/v1/login", formData, {
+      const res = await axiosInstance.post("/login", formData, {
       withCredentials: true,
 });
       toast.success(res.data.message);
@@ -35,7 +35,7 @@ export default function LoginPage() {
       localStorage.setItem("name", res.data.name);
       
     } catch (err) {
-      toast.error( err.res.data.message);
+       toast.error(err.response?.data?.message || "Login failed");
     } finally {
       setIsSubmitting(false);
     }

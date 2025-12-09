@@ -1,7 +1,7 @@
 // ProtectedRoute.jsx
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance.js";
 
 export default function ProtectedRoute() {
   const [isAuth, setIsAuth] = useState(null); 
@@ -9,8 +9,8 @@ export default function ProtectedRoute() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get(
-          "https://node-mailer-test-project-backend.vercel.app/api/v1/auth/isAuth",
+        const res = await axiosInstance.get(
+          "/isAuth",
           { withCredentials: true }
         );
         if (res.data.user) {
