@@ -9,7 +9,7 @@ export default function PublicRoute() {
     const checkAuth = async () => {
       try {
         const res = await axiosInstance.get("/isAuth");
-        setIsAuth(res.data.authenticated);
+        setIsAuth(!!res.data.user);
       } catch (err) {
         setIsAuth(false);
       }
@@ -17,7 +17,6 @@ export default function PublicRoute() {
     checkAuth();
   }, []);
 
- 
   if (isAuth === null) return <div>Loading...</div>;
 
   return isAuth ? <Navigate to="/dashboard" replace /> : <Outlet />;
